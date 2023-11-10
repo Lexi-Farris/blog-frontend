@@ -1,0 +1,33 @@
+image {
+  width: 20px;
+  
+
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: rgb(226, 223, 223);
+}
+
+#button-one {
+background-color: rgba(76, 71, 61, 0.608);
+font-family:fantasy
+display: inline-block;
+padding: 10px 20px; /* You can adjust the padding to change the button's size */
+border-radius: 10px;
+
+}
+
+#button-one:hover {
+  background-color: #9a9d7c; /* Change the background color on hover */
+  color: rgba(76, 71, 61, 0.608);;
+  font-size: medium;
+}
+
+#post-index{
+  padding-left: 2em;
+ padding-top: 1em;
+
+
+
+}
