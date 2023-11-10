@@ -1,12 +1,32 @@
+import axios from "axios";
+
 export function PostNew() {
+  const handleSubmit = (event) => {
+    event.preventDefault(); // overrides the ability to refresh the page and show JSON response from HTTP post request
+
+    const params = new FormData(event.target);
+
+    axios.post("http://localhost:3000/recipes.json", params).then((response) => {
+      console.log(response.data);
+      event.target.reset();
+
+    });
+
+  };
+
   return (
     <div>
       <h1>New post</h1>
-      <form action="/url" method='GET'>
-        <input type="text" name="title" placeholder="Title "></input> <br></br><br></br>
-        <textarea id="body" rows="50" cols="56" placeholder="Enter text here"></textarea>
-        <br></br><br></br>
-        <input type="image" name="image" accept="/image/png, image/jpg, image/svg" src="https://png.pngtree.com/png-vector/20230330/ourmid/pngtree-click-the-red-submit-button-icon-vector-png-image_6674606.png" alt="submit"></input>
+      <form onSubmit={handleSubmit}>
+        <div className="form-group"> 
+          <input className="form-control"  type="text" placeholder="Enter title here" name="title" />
+        </div>
+        
+        <div className="form-group" type="text"  ><input className="form-control" type="text"  placeholder="Text"    name="body" />
+        </div>
+
+      
+        <button type="submit">Submit Post</button> 
 
       </form>
     </div>

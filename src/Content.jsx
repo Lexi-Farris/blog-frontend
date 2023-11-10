@@ -48,7 +48,7 @@ export function Content() {
 
 
   return (
-    <div>
+    <div className="container">
       <PostNew />
 
       {/* Below code:
