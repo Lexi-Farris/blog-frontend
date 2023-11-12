@@ -4,6 +4,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
 import { Modal } from "./Modal";
+import {PostShow} from "./PostShow";
 
 
 export function Content() {
@@ -23,6 +24,8 @@ export function Content() {
       console.log(response.data);
 // setPosts is a function that allows our post array to change BY pushing in information from an array. The array is called (response.data)
       setPosts(response.data);
+
+    
 
       
 
@@ -45,11 +48,48 @@ export function Content() {
 // React hook used to manage 'side effects'; runs function at specific moment in time w/o user needing to do anything
   useEffect(postFullList, []);
 
+const handleCreatePost = (params) => {
+  axios
+    .post("http://localhost:3000/posts.json", params)
+    .then((response) => {
+      setPosts([...posts, response.data]);
+      })
+    .catch((error) => {
+      console.log(error.response.data.error);
+    });
+};
+
+const handleUpdatePost = (id, params) => {
+  axios.patch(`http://localhost:3000/posts/${id}.json`, params).then((response) => {
+    setCurrentPost(response.data);
+    setPosts(
+      // map through the posts array on the actual page. If the posts that are on the page have NOT been updated; don't do anything, just return them as is. IF the post HAS been updated, updated that post on the page with the changes we just made. 
+      posts.map((post) => {
+        if (post.id === response.data.id) {
+          return response.data;
+        } else {
+          return post;
+          }
+        })
+      );
+      // closes modal after update
+      handleClose();
+    });
+  };
+
+const handleDestroyPost = (post) => {
+  axios.delete(`http://localhost:3000/posts/${post.id}.json`).then ((response) => {
+    console.log(post.data);
+    setPosts(posts.filter((p) => p.id !== post.id));
+    handleClose();
+  });
+};
+
 
 
   return (
     <div className="container">
-      <PostNew />
+      <PostNew onCreatePost={handleCreatePost}/>
 
       {/* Below code:
                   is passing in props in key/value pairs
@@ -58,7 +98,8 @@ export function Content() {
             */}
       <PostIndex blogPosts={posts} onShowPost={handleShowPost} />
       <Modal show={isPostsShowVisible} onClose={handleClose}>
-      
+          <PostShow post={currentPost} onUpdatePost={handleUpdatePost}
+          onDestroyPost={handleDestroyPost}/> 
       </Modal>
     </div>
 
