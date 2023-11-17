@@ -5,9 +5,11 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { Modal } from "./Modal";
 import {PostShow} from "./PostShow";
-import { Signup } from "./Signup";
 import { Login} from "./Login"
-import {Logout} from "./LogoutLink"
+import {LogoutLink} from "./LogoutLink"
+import { Routes, Route } from "react-router-dom";
+import { Signup } from "./Signup";
+
 
 export function Content() {
   // posts is an ARRAY
@@ -91,9 +93,12 @@ const handleDestroyPost = (post) => {
 
   return (
     <div className="container">
-      <Signup />
+    <Routes>
+      <Route path="/signup" element={<Signup />} />
+    </Routes>
+      
       <Login />
-      <Logout />
+      <LogoutLink />
       <PostNew onCreatePost={handleCreatePost}/>
 
       {/* Below code:
