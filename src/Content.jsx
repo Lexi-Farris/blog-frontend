@@ -5,7 +5,9 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { Modal } from "./Modal";
 import {PostShow} from "./PostShow";
-
+import { Signup } from "./Signup";
+import { Login} from "./Login"
+import {Logout} from "./LogoutLink"
 
 export function Content() {
   // posts is an ARRAY
@@ -89,6 +91,9 @@ const handleDestroyPost = (post) => {
 
   return (
     <div className="container">
+      <Signup />
+      <Login />
+      <Logout />
       <PostNew onCreatePost={handleCreatePost}/>
 
       {/* Below code:
