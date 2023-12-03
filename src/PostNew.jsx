@@ -15,10 +15,12 @@ export function PostNew(props) {
     //   .catch((error) => {
     //     console.log(error.response.data.error);
     //   });
-    props.onCreatePost(params);
-    event.target.reset;
+    props.onCreatePost(params,() => event.target.reset());
 
-  };
+
+    };
+
+
 
   return (
     <div>
