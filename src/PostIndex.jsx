@@ -8,7 +8,19 @@ export function PostIndex(props) {
   return (
     <div>
       <h1>All posts</h1>
-      Search Posts: <input type="text" value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} />
+      Search Posts:{" "}
+      <input
+        type="text"
+        value={searchTerm}
+        onChange={(event) => setSearchTerm(event.target.value)}
+        list="posts-titles"
+      />
+      <datalist id="posts-titles">
+        {props.blogPosts.map((blogPost) => (
+          // key attribute needed below b/c you NEED an index value to keep track of the itorator
+          <option key={blogPost.id}> {blogPost.title} </option>
+        ))}
+      </datalist>
       {/* props.blogPosts.map((blogPost) similar to .each loop in RUBY where we are defining an itorator, then using the singular version     */}
       <div className="row">
         {props.blogPosts
